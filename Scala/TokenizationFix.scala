@@ -10,7 +10,7 @@ object Tokenization {
   case class Identifier(name: String) extends Token
   case class Number(value: Int) extends Token
   case class ProteusCodeBlock(code: String) extends Token
-  case object HashHash extends Token // Define a singleton object for '##'
+  case object HashHash extends Token 
 
   // Function to tokenize the input string
   def tokenize(input: String): List[Token] = {
@@ -20,17 +20,6 @@ object Tokenization {
     @scala.annotation.tailrec
     def tokenizeRec(input: List[Char], acc: List[Token], currentToken: StringBuilder, proteusBlockContent: StringBuilder, isProteusBlock: Boolean): List[Token] = {
       input match {
-
-        /*case Nil =>
-          if (currentToken.nonEmpty) {
-            acc :+ (if (currentToken.forall(_.isDigit))
-              Number(currentToken.toString.toInt) // If current token consists of digits, create a Number token
-            else
-              Identifier(currentToken.toString)) // If current token is not a number, create an Identifier token
-          } else {
-            acc
-          }*/
-        // If the input list is empty, return the accumulated tokens
         case Nil => // Got rid of Identifier output hoping we end with only complete tokens
           acc
         // If '##' is encountered and not inside a Proteus block, add a ProteusCodeBlock token to the accumulator
